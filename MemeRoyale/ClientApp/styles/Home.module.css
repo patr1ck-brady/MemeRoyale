@@ -115,6 +115,38 @@
   height: 1em;
 }
 
+
+.outsidebox {
+  position: absolute;
+  margin-left: 20vw;
+  margin-top: 10vh;
+  height: 60vh;
+  width: 60vw;
+}
+
+.insidebox {
+  position: relative;
+  height: 300px;
+  width: 100%;
+}
+
+.headerh{
+  height: 100px;
+}
+
+.headtitle {
+  background-color: #0070f3;
+  text-align: center;
+  grid: 150px;
+  font-size: 20px;
+  object-fit: 400px;
+  letter-spacing: 30px;
+  box-sizing: border-box;
+  table-layout: auto;
+  font-weight: bold;
+  height: 200px;
+  background-size: 300px 100px;
+}
 @media (max-width: 600px) {
   .grid {
     width: 100%;
