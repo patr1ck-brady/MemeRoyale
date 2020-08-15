@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using System;
+using MemeRoyale.Services;
 
 namespace MemeRoyale
 {
@@ -27,10 +28,15 @@ namespace MemeRoyale
             string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             string connectionString = Configuration[$"MemeRoyaleContext:{environment.ToLower()}"];
 
+            services.Configure<AppSettings>(optionsSetup =>
+                optionsSetup.GiphyApiKey = Configuration["Giphy:ApiKey"]
+            );
+
             services.AddDbContext<MemeRoyaleContext>(options =>
                 options.UseSqlServer(connectionString));
 
             services.AddHttpContextAccessor();
+            services.AddScoped<IGiphyService, GiphyService>();
 
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
