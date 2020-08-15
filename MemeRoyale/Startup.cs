@@ -1,10 +1,15 @@
+using MemeRoyale.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using System;
+using MemeRoyale.Services;
 
 namespace MemeRoyale
 {
@@ -20,8 +25,21 @@ namespace MemeRoyale
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            string connectionString = Configuration[$"MemeRoyaleContext:{environment.ToLower()}"];
 
-            services.AddControllersWithViews();
+            services.Configure<AppSettings>(optionsSetup =>
+                optionsSetup.GiphyApiKey = Configuration["Giphy:ApiKey"]
+            );
+
+            services.AddDbContext<MemeRoyaleContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            services.AddHttpContextAccessor();
+            services.AddScoped<IGiphyService, GiphyService>();
+
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
