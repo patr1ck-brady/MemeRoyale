@@ -1,34 +1,18 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import SearchForMeme from './components/search-for-meme'
+import SearchForMeme from '../components/search-for-meme'
+import { ThemeProvider } from 'styled-components';
+import original from 'react95/dist/themes/original';
+import { Window } from 'react95';
 
 export default function Home() {
   return (
     <div className={styles.container}>
-
-
-
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        
-        <SearchForMeme/>
-
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      <ThemeProvider theme={original}>
+        <Window>
+          <SearchForMeme/>
+        </Window>
+      </ThemeProvider>
     </div>
   )
 }

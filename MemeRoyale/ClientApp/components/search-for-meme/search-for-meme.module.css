@@ -1,0 +1,35 @@
+.title {
+    font-size: x-large;
+    margin: 20px;
+}
+
+.container {
+    width: 75vw;
+    min-width: 400px;
+    height: fit-content;
+    max-height: 75vh;
+}
+
+.searchContainer {
+    margin: 20px;
+    display: flex;
+}
+
+.searchBar {
+    font-size: large;
+}
+
+.gifContainer {
+    justify-content: center;
+    display: flex;
+    flex-flow: wrap;
+    width: calc(100% - 24x);
+    height: 100%;
+    max-height: 50vh;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.gifContainerLoading {
+    margin-bottom: 3px;
+}
